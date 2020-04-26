@@ -10,7 +10,7 @@ let corsOptions = {
     optionSuccessStatus: 200
 };
 
-router.use(express.static('./client/dist'))
+router.use(express.static('client/public'))
 router.use(cors(corsOptions));
 
 router.use('/newPhoto', (req, res, next) => {
@@ -35,6 +35,11 @@ const upload = multer({ storage });
 router.post('/newPhoto', upload.single('file'), (req, res) => {
     res.send();
 });
+
+router.get('/site', (req, res) => {
+    res.sendFile(path.join(__dirname, '..', '..', 'dist', 'index.html'));
+});
+
 
 router.get('/photo', (req, res) => {
     res.sendFile(path.join(__dirname, '..', 'images', 'defaultImage.png'));
